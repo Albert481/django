@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <h2>Profile</h2>
+        Username: {{ user.username }}<br>
+        Email: {{ user.email }}<br>
+        {% for users in data %}
+            {% if users.email == user.email %}
+                Ethaddress: {{ users.ethaddress }}<br>
+                Indicativecontribution: {{ users.indicativecontribution }}<br>
+                Actualcontribution: {{ users.actualcontribution }}<br>
+                Mytoken: {{ users.mytoken }}<br>
+                Bonustoken: {{ users.bonustoken }}<br>
+                Tokenwithdrawn: {{ users.tokenwithdrawn }}<br><br>
+            {% endif %}
+        {% endfor %}
+
+        Password: <a href="change_password"> Change Password</a>
+    </div>
+{% endblock %}
