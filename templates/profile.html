@@ -275,41 +275,49 @@
                         <div class="panel-body">
                             {% for users in data %}
                                 {% if users.email == user.email %}
-                                <table class="table table-condensed">
-                                    <thead>
-                                    <tr>
-                                        <th>My Numbers</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Ethaddress:</td>
-                                        <td class="text-right">{{ users.ethaddress }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Indicative Contribution</td>
-                                        <td class="text-right">{{ users.indicativecontribution }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Actual Contribution</td>
-                                        <td class="text-right"><span
-                                                class="usage11">{{ users.actualcontribution }}</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>My Tokens</td>
-                                        <td class="text-right"><span class="usage11">{{ users.mytoken }}</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Bonus Token</td>
-                                        <td class="text-right"><span class="usage11">{{ users.bonustoken }}</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Token Withdrawn</td>
-                                        <td class="text-right"><span class="usage11">{{ users.tokenwithdrawn }}</span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <form method="post" id="loginForm" action="" enctype="multipart/form-data">
+                                    <table class="table table-condensed">
+                                        <thead>
+                                        <tr>
+                                            <th>My Numbers</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% csrf_token %}
+                                        {{ form.as_table }}
+{#                                        <tr>#}
+{#                                            <td>Ethaddress:</td>#}
+{#                                            <td class="text-right">{{ users.ethaddress }}</td>#}
+{#                                        </tr>#}
+{#                                        <tr>#}
+{#                                            <td>Indicative Contribution</td>#}
+{#                                            <td class="text-right">{{ users.indicativecontribution }}</td>#}
+{#                                        </tr>#}
+                                        <tr>
+                                            <td>Actual Contribution</td>
+                                            <td class="text-right"><span
+                                                    class="usage11">{{ users.actualcontribution }}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>My Tokens</td>
+                                            <td class="text-right"><span class="usage11">{{ users.mytoken }}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Bonus Token</td>
+                                            <td class="text-right"><span class="usage11">{{ users.bonustoken }}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Token Withdrawn</td>
+                                            <td class="text-right"><span class="usage11">{{ users.tokenwithdrawn }}</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div>
+                                        <button class="btn btn-accent">Update Changes</button>
+                                    </div>
+
+                                </form>
                                 {% endif %}
                             {% endfor %}
 

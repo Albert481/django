@@ -60,15 +60,15 @@
                                 {{ field }}
                             </div>
                         {% endfor %}
-                        {% if form.errors %}
-                                {% for field in form %}
-                                    {% for error in field.errors %}
-                                        <div class="alert alert-danger">
+                        {% if form.non_field_errors %}
+                            <div class="non-field-errors">
+                                {% for error in form.non_field_errors %}
+                                    <div class="alert alert-danger">
                                             <strong>{{ error|escape }}</strong>
                                         </div>
-                                    {% endfor %}
                                 {% endfor %}
-                            {% endif %}
+                            </div>
+                        {% endif %}
                         <div>
                             <button class="btn btn-accent">Login</button>
                             <a class="btn btn-default" href="../register">Register</a>

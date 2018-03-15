@@ -20,7 +20,6 @@ class UserRegisterForm(forms.ModelForm):
         #Check if 2 emails match
         email = self.cleaned_data.get('email')
         email2 = self.cleaned_data.get('email2')
-        print(email, email2)
         if email != email2:
             raise forms.ValidationError("Emails don't match")
         return email2
@@ -29,7 +28,6 @@ class UserRegisterForm(forms.ModelForm):
         #Check if 2 passwords match
         password = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('password2')
-        print(password, password2)
         if password != password2:
             raise forms.ValidationError("Passwords don't match")
         return password2
@@ -38,6 +36,7 @@ class UserRegisterForm(forms.ModelForm):
         #Save password in hash
         user = super(UserRegisterForm, self).save(commit=False)
         user.set_password(self.cleaned_data['password'])
+        print(user)
         if commit:
             user.save()
         return user
