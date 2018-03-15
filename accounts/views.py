@@ -38,7 +38,7 @@ def register_view(request):
             # login(request, new_user)
 
             #Set default values to accounts_profile
-            new_entry = Profile(email=user.email.lower(), ethaddress='null', indicativecontribution=0, actualcontribution=0, mytoken=0, bonustoken=0, tokenwithdrawn=0)
+            new_entry = Profile(email=user, ethaddress='null', indicativecontribution=0, actualcontribution=0, mytoken=0, bonustoken=0, tokenwithdrawn=0)
             new_entry.save()
             print('Successfully registered')
             return redirect('../')
@@ -50,14 +50,15 @@ def register_view(request):
     return render(request, "register.html", context)
 
 def profile_view(request):
+    #Retrieves all data from accounts.profile
     data = Profile.objects.all()
 
     form = EditProfile.EditValues(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
             print(user)
-            user.save()
+            # user.save()
 
     context = {
         "data": data,
