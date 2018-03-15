@@ -20,7 +20,7 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email, password, **extra_fields):
         return self._create_user(email, password, True, True, **extra_fields)
 
-class CustomUser(AbstractBaseUser):
+class Auth_User(AbstractBaseUser):
     email = models.EmailField(unique=True, primary_key=True)
     staff = models.BooleanField(default=False) #staff user, but not superuser
     admin = models.BooleanField(default=False) #superuser

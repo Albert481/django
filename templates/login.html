@@ -53,16 +53,22 @@
             <div class="panel panel-filled">
                 <div class="panel-body">
                     <form method="post" action="" id="loginForm" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {% for field in form %}
-                                <div class="form-group">
-                                    <label>{{ field.label_tag }}</label>
-                                    {{ field }}
-                                    {% for err in field.errors %}
-                                        {{ err }}
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="form-group">
+                                <label>{{ field.label_tag }}</label>
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                        {% if form.errors %}
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ error|escape }}</strong>
+                                        </div>
                                     {% endfor %}
-                                </div>
-                            {% endfor %}
+                                {% endfor %}
+                            {% endif %}
                         <div>
                             <button class="btn btn-accent">Login</button>
                             <a class="btn btn-default" href="../register">Register</a>

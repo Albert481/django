@@ -10,7 +10,7 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
 
     <!-- Page title -->
-    <title>LUNA | Responsive Admin Theme</title>
+    <title>gstar - Profile</title>
 
     <!-- Vendor styles -->
     <link rel="stylesheet" href="{% static 'vendor/fontawesome/css/font-awesome.css' %}"/>
@@ -274,6 +274,7 @@
 
                         <div class="panel-body">
                             {% for users in data %}
+                                {% if users.email == user.email %}
                                 <table class="table table-condensed">
                                     <thead>
                                     <tr>
@@ -309,6 +310,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                {% endif %}
                             {% endfor %}
 
 

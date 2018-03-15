@@ -10,7 +10,6 @@ from accounts.models import Profile
 def login_view(request):
     form = LoginForm.UserLoginForm(request.POST or None)
     if request.method == 'POST':
-        print('Login submitted')
         if form.is_valid():
             print('Login Validated')
             email = form.cleaned_data.get("email")
@@ -22,9 +21,11 @@ def login_view(request):
                 return redirect('profile')
             else:
                 print('User invalid')
-                return redirect('../')
+    context = {
+        "form": form,
+    }
 
-    return render(request, "login.html", {"form":form,})
+    return render(request, "login.html", context)
 
 def register_view(request):
     form = RegisterForm.UserRegisterForm(request.POST or None)

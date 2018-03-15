@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import (authenticate, get_user_model, login, logout)
 
-from accounts.models import CustomUser
+from accounts.models import Auth_User
 
 class UserRegisterForm(forms.ModelForm):
     email = forms.EmailField(max_length=255, label='Email Address', widget=forms.EmailInput(attrs={'class': 'form-control'}))
@@ -10,7 +10,7 @@ class UserRegisterForm(forms.ModelForm):
     password2 = forms.CharField(label='Repeat Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
     class Meta:
-        model = CustomUser
+        model = Auth_User
         fields = ('email',
                   'email2',
                   'password',
@@ -29,7 +29,7 @@ class UserRegisterForm(forms.ModelForm):
         password = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('password2')
         if password != password2:
-            raise forms.ValidationError("Password don't match")
+            raise forms.ValidationError("Passwords don't match")
         return password2
 
     def save(self, commit=True):
