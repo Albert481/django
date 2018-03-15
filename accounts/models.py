@@ -21,7 +21,7 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, True, True, **extra_fields)
 
 class Auth_User(AbstractBaseUser):
-    email = models.EmailField(unique=True, primary_key=True)
+    email = models.EmailField(primary_key=True, error_messages={'unique':"This email has already been registered."})
     staff = models.BooleanField(default=False) #staff user, but not superuser
     admin = models.BooleanField(default=False) #superuser
 
@@ -33,8 +33,8 @@ class Auth_User(AbstractBaseUser):
 class Profile(models.Model):
     email = models.CharField(max_length=255, default='null', primary_key=True)
     ethaddress = models.CharField(max_length=255, default='null')
-    indicativecontribution = models.DecimalField(max_digits=5, default=0, decimal_places=2)
-    actualcontribution = models.DecimalField(max_digits=5, default=0, decimal_places=2)
-    mytoken = models.DecimalField(max_digits=5, default=0, decimal_places=2)
-    bonustoken = models.DecimalField(max_digits=5, default=0, decimal_places=2)
-    tokenwithdrawn = models.DecimalField(max_digits=5, default=0, decimal_places=2)
+    indicativecontribution = models.DecimalField(max_digits=10, default=0, decimal_places=2)
+    actualcontribution = models.DecimalField(max_digits=10, default=0, decimal_places=2)
+    mytoken = models.DecimalField(max_digits=10, default=0, decimal_places=2)
+    bonustoken = models.DecimalField(max_digits=10, default=0, decimal_places=2)
+    tokenwithdrawn = models.DecimalField(max_digits=10, default=0, decimal_places=2)
