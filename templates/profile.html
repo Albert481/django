@@ -22,6 +22,17 @@
     <link rel="stylesheet" href="{% static 'styles/pe-icons/helper.css' %}"/>
     <link rel="stylesheet" href="{% static 'styles/stroke-icons/style.css' %}"/>
     <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+
+    <!-- This style tag removes up/down spinners for NumberField (Indicative Contrib) -->
+    <style>
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
 
@@ -225,49 +236,66 @@
                         <div class="panel-body">
                             {% for users in data %}
                                 {% if users.email == user %}
-                                <form method="post" id="loginForm" action="" enctype="multipart/form-data">
-                                    <table class="table table-condensed">
-                                        <thead>
-                                        <tr>
-                                            <h3>My Numbers</h3>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% csrf_token %}
-                                        {{ form.as_table }}
-{#                                        <tr>#}
-{#                                            <td>Ethaddress:</td>#}
-{#                                            <td class="text-right">{{ users.ethaddress }}</td>#}
-{#                                        </tr>#}
-{#                                        <tr>#}
-{#                                            <td>Indicative Contribution</td>#}
-{#                                            <td class="text-right">{{ users.indicativecontribution }}</td>#}
-{#                                        </tr>#}
-                                        <tr>
-                                            <th>Actual Contribution</th>
-                                            <td class="text-right"><span
-                                                    class="usage11">{{ users.actualcontribution }}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>My Tokens</th>
-                                            <td class="text-right"><span class="usage11">{{ users.mytoken }}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Bonus Token</th>
-                                            <td class="text-right"><span class="usage11">{{ users.bonustoken }}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Token Withdrawn</th>
-                                            <td class="text-right"><span class="usage11">{{ users.tokenwithdrawn }}</span>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div>
-                                        <button class="btn btn-accent">Update Changes</button>
-                                    </div>
+                                    <form method="post" id="loginForm" action="" enctype="multipart/form-data">
+                                        <table class="table table-condensed">
+                                            <thead>
+                                            <tr>
+                                                <h3>My Numbers</h3>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% csrf_token %}
+                                            <tr id="eth_id" style="display: none">
+                                                <th>Ethaddress</th>
+                                                <td class="text-right"><span
+                                                        class="usage11">{{ form.ethaddress }}</span></td>
+                                            </tr>
+                                            <tr id="ind_id" style="display: none">
+                                                <th>Indicative Contribution</th>
+                                                <td class="text-right"><span
+                                                        class="usage11">{{ form.indicativecontribution }}</span></td>
+                                            </tr>
+                                            <tr id="eth_id_static" >
+                                                <th>Ethaddress</th>
+                                                <td class="text-right"><span
+                                                        class="usage11">{{ users.ethaddress }}</span></td>
+                                            </tr>
+                                            <tr id="ind_id_static">
+                                                <th>Indicative Contribution</th>
+                                                <td class="text-right"><span
+                                                        class="usage11">{{ users.indicativecontribution }}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Actual Contribution</th>
+                                                <td class="text-right"><span
+                                                        class="usage11">{{ users.actualcontribution }}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>My Tokens</th>
+                                                <td class="text-right"><span
+                                                        class="usage11">{{ users.mytoken }}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Bonus Token</th>
+                                                <td class="text-right"><span
+                                                        class="usage11">{{ users.bonustoken }}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Token Withdrawn</th>
+                                                <td class="text-right"><span
+                                                        class="usage11">{{ users.tokenwithdrawn }}</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
 
-                                </form>
+                                    </form>
+                                    <div>
+                                        <button onclick="changeBtn()" id="buttonchange" class="btn btn-accent">
+                                            Update Changes
+                                        </button>
+                                    </div>
                                 {% endif %}
                             {% endfor %}
 
@@ -293,6 +321,33 @@
 
 <!-- App scripts -->
 <script src="{% static 'scripts/luna.js' %}"></script>
+
+<script>
+    function changeBtn() {
+        var submitbtn = document.getElementById("buttonchange");
+        var eth_id = document.getElementById('eth_id');
+        var ind_id = document.getElementById('ind_id');
+        var eth_id_static = document.getElementById('eth_id_static');
+        var ind_id_static = document.getElementById('ind_id_static');
+
+        <!-- View: After button click -->
+        if (submitbtn.innerHTML === 'Save') {
+            submitbtn.innerHTML = "Update Changes";
+            eth_id.style.display = 'none';
+            ind_id.style.display = 'none';
+            eth_id_static.style.display = 'block';
+            ind_id_static.style.display = 'block';
+        }
+        else {
+            submitbtn.innerHTML = 'Save';
+            eth_id.style.display = 'block';
+            ind_id.style.display = 'block';
+            eth_id_static.style.display = 'none';
+            ind_id_static.style.display = 'none';
+        }
+
+    }
+</script>
 
 <script>
     $(document).ready(function () {

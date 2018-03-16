@@ -9,6 +9,7 @@ from accounts.models import Profile
 
 def login_view(request):
     form = LoginForm.UserLoginForm(request.POST or None)
+    print(form)
     if request.method == 'POST':
         if form.is_valid():
             print('Login Validated')
@@ -53,12 +54,10 @@ def profile_view(request):
     #Retrieves all data from accounts.profile
     data = Profile.objects.all()
 
-    form = EditProfile.EditValues(request.POST or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            user = form.save(commit=False)
-            print(user)
-            # user.save()
+    form = EditProfile.EditValues(request.POST, instance=request.user)
+    # if request.method == 'POST':
+    #     if form.is_valid():
+    #         form.save()
 
     context = {
         "data": data,

@@ -22,8 +22,8 @@ class UserProfile(forms.ModelForm):
         return password
 
 class EditValues(forms.ModelForm):
-    ethaddress = forms.CharField(max_length=255, label='Ethaddress', widget=forms.TextInput(attrs={'class': 'text-right, form-control', 'placeholder': ''}))
-    indicativecontribution = forms.CharField(max_length=255, label='Indicative Contribution', widget=forms.NumberInput(attrs={'class': 'text-right, form-control', 'placeholder':''}))
+    ethaddress = forms.CharField(max_length=255, label='Ethaddress', widget=forms.TextInput(attrs={'class': 'text-right, form-control', 'required': False}))
+    indicativecontribution = forms.CharField(max_length=255, label='Indicative Contribution', widget=forms.NumberInput(attrs={'class': 'text-right, form-control', 'required': False}))
 
     class Meta:
         model = Profile
@@ -31,3 +31,4 @@ class EditValues(forms.ModelForm):
             'ethaddress',
             'indicativecontribution'
         ]
+        widgets = {'tag': forms.HiddenInput()}
