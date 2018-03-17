@@ -44,7 +44,7 @@ class UserRegisterForm(forms.ModelForm):
         else:
             print(m)
             raise forms.ValidationError(
-                "Please ensure that your password contains at least 8 characters, with at least 1 uppercase letter, 1 lowercase letter and 1 number")
+                "Please ensure that your password contains at least 8 characters, with at least 1 Uppercase letter, 1 Lowercase letter, 1 Special Character and 1 Number")
 
 
     def save(self, commit=True):
