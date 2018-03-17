@@ -339,8 +339,10 @@
             submitbtn.innerHTML = "Update Changes";
             eth_id.style.display = 'none';
             ind_id.style.display = 'none';
-            update_ethadd.innerHTML = eth_value;
-            update_indi.innerHTML = ind_value;
+            if (eth_value != '') {
+                update_ethadd.innerHTML = eth_value;
+                update_indi.innerHTML = ind_value;
+            }
             eth_id_static.style.display = 'table-row';
             ind_id_static.style.display = 'table-row';
         }
