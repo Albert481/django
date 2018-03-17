@@ -234,9 +234,9 @@
                     <div class="panel">
 
                         <div class="panel-body">
-                            {% for users in data %}
-                                {% if users.email == user %}
-                                    <form method="post" id="loginForm" action="" enctype="multipart/form-data">
+                            {% for user_profile in data %}
+                                {% if user_profile.email == user %}
+                                    <form method="post" id="loginForm" action="" enctype="multipart/form-data" novalidate>
                                         <table class="table table-condensed">
                                             <thead>
                                             <tr>
@@ -257,34 +257,34 @@
                                             </tr>
                                             <tr id="eth_id_static" >
                                                 <th>Ethaddress</th>
-                                                <td class="text-right"><span
-                                                        class="usage11">{{ users.ethaddress }}</span></td>
+                                                <td class="text-right"><span id="update_ethadd"
+                                                        class="usage11">{{ user_profile.ethaddress }}</span></td>
                                             </tr>
                                             <tr id="ind_id_static">
                                                 <th>Indicative Contribution</th>
-                                                <td class="text-right"><span
-                                                        class="usage11">{{ users.indicativecontribution }}</span></td>
+                                                <td class="text-right"><span id="update_indi"
+                                                        class="usage11">{{ user_profile.indicativecontribution }}</span></td>
                                             </tr>
                                             <tr>
                                                 <th>Actual Contribution</th>
                                                 <td class="text-right"><span
-                                                        class="usage11">{{ users.actualcontribution }}</span></td>
+                                                        class="usage11">{{ user_profile.actualcontribution }}</span></td>
                                             </tr>
                                             <tr>
                                                 <th>My Tokens</th>
                                                 <td class="text-right"><span
-                                                        class="usage11">{{ users.mytoken }}</span>
+                                                        class="usage11">{{ user_profile.mytoken }}</span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th>Bonus Token</th>
                                                 <td class="text-right"><span
-                                                        class="usage11">{{ users.bonustoken }}</span></td>
+                                                        class="usage11">{{ user_profile.bonustoken }}</span></td>
                                             </tr>
                                             <tr>
                                                 <th>Token Withdrawn</th>
                                                 <td class="text-right"><span
-                                                        class="usage11">{{ users.tokenwithdrawn }}</span>
+                                                        class="usage11">{{ user_profile.tokenwithdrawn }}</span>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -329,12 +329,20 @@
         var ind_id = document.getElementById('ind_id');
         var eth_id_static = document.getElementById('eth_id_static');
         var ind_id_static = document.getElementById('ind_id_static');
+        var update_ethadd = document.getElementById('update_ethadd');
+        var update_indi = document.getElementById('update_indi');
+        var eth_value = $("#eth_value").val();
+        var ind_value = $("#ind_value").val();
 
         <!-- View: After button click -->
         if (submitbtn.innerHTML === 'Save') {
             submitbtn.innerHTML = "Update Changes";
             eth_id.style.display = 'none';
             ind_id.style.display = 'none';
+            if (eth_value != '') {
+                update_ethadd.innerHTML = eth_value;
+                update_indi.innerHTML = ind_value;
+            }
             eth_id_static.style.display = 'table-row';
             ind_id_static.style.display = 'table-row';
         }
@@ -348,6 +356,7 @@
 
     }
 
+    <!-- Submit without refresh for form loginForm -->
     $('#loginForm').submit(function(e){
     e.preventDefault();
     url = $(this).attr('action')
