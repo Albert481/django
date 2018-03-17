@@ -292,7 +292,7 @@
 
                                     </form>
                                     <div>
-                                        <button onclick="changeBtn()" id="buttonchange" class="btn btn-accent">
+                                        <button onclick="changeBtn()" id="buttonchange" class="btn btn-accent" form="loginForm">
                                             Update Changes
                                         </button>
                                     </div>
@@ -347,6 +347,14 @@
         }
 
     }
+
+    $('#loginForm').submit(function(e){
+    e.preventDefault();
+    url = $(this).attr('action')
+    data = $(this).serialize();
+    $.post(url, data, function(response){
+    })
+})
 </script>
 
 <script>

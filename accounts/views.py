@@ -55,9 +55,10 @@ def profile_view(request):
     data = Profile.objects.all()
 
     form = EditProfile.EditValues(request.POST, instance=request.user)
-    # if request.method == 'POST':
-    #     if form.is_valid():
-    #         form.save()
+    if request.method == 'POST':
+        if form.is_valid():
+            print(form)
+            #form.save()
 
     context = {
         "data": data,
