@@ -57,7 +57,6 @@ def profile_view(request):
     form = EditProfile.EditValues(request.POST, instance=request.user)
     if request.method == 'POST':
         if form.is_valid():
-            entry = form.save(commit=False)
             ethaddress = form.cleaned_data['ethaddress']
             indicativecontribution = form.cleaned_data['indicativecontribution']
             entry = Profile(email=current_user, ethaddress=ethaddress, indicativecontribution=indicativecontribution)
