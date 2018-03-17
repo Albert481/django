@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import (authenticate, get_user_model, login, logout)
-
+import re
 from accounts.models import Auth_User
 
 class UserRegisterForm(forms.ModelForm):
@@ -30,6 +30,19 @@ class UserRegisterForm(forms.ModelForm):
         password2 = self.cleaned_data.get('password2')
         if password != password2:
             raise forms.ValidationError("Passwords don't match")
+        
+        # regex to ensure that password fits minimum requirements
+        password_regex = re.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}")
+        m = password_regex.match(password)
+
+        if password != password2:
+            raise forms.ValidationError("Passwords don't match")
+        if m is not "None":
+            raise forms.ValidationError(
+                "Please ensure that your password contains at least 8 characters, with at least 1 uppercase letter, 1 lowercase letter and 1 number")
+
+        else:
+            print(m)
         return password2
 
     def save(self, commit=True):
