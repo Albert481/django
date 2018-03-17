@@ -53,12 +53,16 @@ def register_view(request):
 def profile_view(request):
     #Retrieves all data from accounts.profile
     data = Profile.objects.all()
-
+    current_user = request.user
     form = EditProfile.EditValues(request.POST, instance=request.user)
     if request.method == 'POST':
         if form.is_valid():
-            print(form)
-            #form.save()
+            entry = form.save(commit=False)
+            ethaddress = form.cleaned_data['ethaddress']
+            indicativecontribution = form.cleaned_data['indicativecontribution']
+            entry = Profile(email=current_user, ethaddress=ethaddress, indicativecontribution=indicativecontribution)
+            entry.save()
+
 
     context = {
         "data": data,
